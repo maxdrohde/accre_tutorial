@@ -33,8 +33,9 @@ run_t_test <- function(mu1, mu2, sd1, sd2, n1, n2, n_sim){
   results <- data.frame(power, arguments)
   results$datetime <- Sys.time()
   
-  filename <-
-    glue::glue("{paste(arguments, collapse = '_')}_{as.integer(Sys.time())}.csv")
+  arguments_string <- paste(arguments, collapse = '_')
+  datetime <- as.integer(Sys.time())
+  filename <- glue::glue("{arguments_string}_{datetime}.csv")
   
   readr::write_csv(x = results, file = glue::glue("results/{filename}"))
 }
