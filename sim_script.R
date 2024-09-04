@@ -18,24 +18,24 @@ params <- sim_settings[i,]
 
 # Define main simulation function
 run_t_test <- function(mu1, mu2, sd1, sd2, n1, n2, n_sim){
-
+  
   arguments <- c(as.list(environment()))
-
+  
   p <- numeric(n_sim)
-
+  
   for (i in 1:n_sim) {
-    y1 <- rnorm(n = n1, mean = mu1, sd = sd1)
-    y2 <- rnorm(n = n2, mean = mu2, sd = sd2)
-    p[i] <- t.test(y1, y2)$p.value
+      y1 <- rnorm(n = n1, mean = mu1, sd = sd1)
+      y2 <- rnorm(n = n2, mean = mu2, sd = sd2)
+      p[i] <- t.test(y1, y2)$p.value
   }
   power <- mean(p < 0.05)
-
+  
   results <- data.frame(power, arguments)
   results$datetime <- Sys.time()
-
+  
   filename <-
     glue::glue("{paste(arguments, collapse = '_')}_{as.integer(Sys.time())}.csv")
-
+  
   readr::write_csv(x = results, file = glue::glue("results/{filename}"))
 }
 
@@ -44,4 +44,6 @@ run_t_test(mu1 = params$mu1,
            mu2 = params$mu2,
            sd1 = params$sd1,
            sd2 = params$sd2,
-           n_sim = 1e3)
+           n1 = params$n1,
+           n2 = params$n2,
+           n_sim = 1e4)
