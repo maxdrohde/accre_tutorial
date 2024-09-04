@@ -3,6 +3,11 @@ args <- commandArgs(trailingOnly=TRUE)
 # Take the first argument only
 i <- as.integer(args[[1]])
 
+# Set the seed based on the current job number
+# This is important for reproducibility and ensuring that each simulation
+# starts with a different random seed
+set.seed(i)
+
 # Define simulation settings
 sim_settings <-
   expand.grid(mu1 = 0,
