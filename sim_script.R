@@ -46,10 +46,4 @@ run_t_test <- function(mu1, mu2, sd1, sd2, n1, n2, n_sim){
 }
 
 # Run the simulation 1e4 times with the specified parameters
-run_t_test(mu1 = params$mu1,
-           mu2 = params$mu2,
-           sd1 = params$sd1,
-           sd2 = params$sd2,
-           n1 = params$n1,
-           n2 = params$n2,
-           n_sim = 1e4)
+do.call(run_t_test, c(params, n_sim = 1e4))
